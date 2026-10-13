@@ -10,7 +10,7 @@ opcionalmente numa VPS 24h). Cobre o fluxo inteiro do serviço, do primeiro cont
 | `EXTRAJUDICIAL/` | Notificação a cada banco, rascunho no Gmail, prazo de resposta, consumidor.gov, parecer de proposta |
 | `JUDICIAL/` | Checklist pré-protocolo, inicial mandamental com tutela, agravo, réplica, embargos, contrarrazões |
 | `CONTROLADORIA/` | Intimações do DJEN, prazos com D-3, tarefas no ADVBOX, avisos e relatório ao cliente, planilha, finalização |
-| `MARKETING/` | Calendário editorial, posts e artes do Instagram, checagem do Provimento 205, plano de campanha no Meta por região, análise dos anúncios, funil com custo por contrato, landing page |
+| `MARKETING/` | Calendário editorial, posts e artes do Instagram, checagem do Provimento 205, plano de campanha no Meta por região, análise dos anúncios, funil com custo por contrato, landing page, backup completo da conta de anúncios e réplica de campanhas com IA (nasce pausada) |
 | `GESTAO/` | Pauta de segunda, auditoria de sexta, gargalos da equipe |
 | `FINANCEIRO/` | Régua de cobrança de honorários, inadimplência, fechamento mensal |
 

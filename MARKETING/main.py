@@ -17,6 +17,11 @@ Trafego pago e funil (Meta):
     python MARKETING/main.py landing --whatsapp 5569...         pagina de captacao
     python MARKETING/main.py utm --campanha X --conjunto Y --anuncio Z
 
+Copia e replicacao de campanhas (Meta):
+    python MARKETING/main.py backup [--videos]                  copia TUDO da conta + mapa completo (so leitura)
+    python MARKETING/main.py replicar --campanha <id|nome> [--ia] [--aplicar]
+                                                                recria a campanha corrigida; nasce PAUSADA
+
 Nada e publicado nem alterado na conta de anuncios sem ordem humana.
 Detalhes: docs/POP_MARKETING_CONTEUDO.md, docs/POP_MARKETING_TRAFEGO.md, docs/GUIA_MONITOR_CAMPANHAS.md
 """
@@ -42,6 +47,12 @@ def main(argv=None):
     elif comando in TRAFEGO:
         import trafego
         retorno = trafego.main(argv)
+    elif comando == 'backup':
+        import meta_backup
+        retorno = meta_backup.main(argv)
+    elif comando == 'replicar':
+        import meta_replicar
+        retorno = meta_replicar.main(argv[1:])
     else:
         print(f'Comando desconhecido: {comando}\n{__doc__}')
         return 1

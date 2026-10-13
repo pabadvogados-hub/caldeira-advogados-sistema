@@ -33,6 +33,8 @@ Iguais no Windows e no Mac; no Mac, antes, `source .venv/bin/activate` (ou use `
 | Fluxo inicial | Plano de campanha do Meta (regiões do radar, orçamento, ângulos, teste A/B de 14 dias) | `MARKETING/trafego.py plano --orcamento-mensal 3000` | Gestor / quem monitora | sob demanda | radar gerado (`COMERCIAL/main.py radar`); `META_ACCESS_TOKEN` opcional (confere interesses) |
 | Fluxo inicial | Análise por anúncio: escalar, manter, pausar, trocar criativo | `MARKETING/trafego.py criativos --dias 7` | quem monitora as campanhas | diário 7h15 | `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID` (+ `ANTHROPIC_API_KEY` para a leitura da IA) |
 | Fluxo inicial | Ações na conta com trava (pausar, orçamento ±20%, duplicar PAUSADO) | `MARKETING/trafego.py acoes --dias 7 --aplicar` | Gestor (confirma item a item) | nunca automático | `META_ACCESS_TOKEN_ACOES` (ads_management) |
+| Fluxo inicial | Backup e mapa completo da conta de anúncios (todas as campanhas, públicos, textos, mídia, 37 meses de resultado) | `MARKETING/main.py backup [--videos]` | quem monitora as campanhas | sob demanda (sugestão: semanal) | `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID` |
+| Fluxo inicial | Replicar campanha a partir do backup, com revisão da IA (região, gênero, textos no Provimento 205); nasce PAUSADA | `MARKETING/main.py replicar --listar` / `--campanha <id> [--ia] [--aplicar]` | Gestor (digita SIM) | nunca automático | `META_ACCESS_TOKEN_ACOES`; `ANTHROPIC_API_KEY` para `--ia`; destino só contas do `.env` |
 | Fluxo inicial | Funil do mês: gasto -> conversas -> reuniões -> contratos (CAC, ROI) | `MARKETING/trafego.py funil --mes MM/AAAA` | Gestor / titular | mensal, dia 2, 8h (mês anterior) | Meta (ou `--gasto`), `--csv` do atendimento ou `ATENDE_DIREITO_FLOW_TOKEN`, `PASTA_CLIENTES_RAIZ` |
 | Fluxo inicial | Página do produtor rural (landing) e links com UTM | `MARKETING/trafego.py landing` e `utm --campanha ... --conjunto ... --anuncio ...` | Marketing | sob demanda | - |
 | Fluxo inicial | Closer fechou: pasta, triagem, contrato, procuração, declaração | `CONTRATACAO/main.py novo "TRANSCRICAO" "CNH" ... --cadastro CADASTRO.txt` | Closer | sob demanda | `ANTHROPIC_API_KEY`, `PASTA_CLIENTES_RAIZ` |
@@ -151,7 +153,8 @@ o que muda de uma para outra é o jeito de escrever os caminhos (`PASTA_CLIENTES
 | `PRAZO_INTERNO_DIAS_ANTES`, `FERIADOS_EXTRAS`, `RELATORIO_CLIENTE_DIAS` | ajustes de prazos e do relatório | CONTROLADORIA | não |
 | `PRAZO_RESPOSTA_BANCO_DIAS`, `EMAIL_RESPOSTAS_BANCOS` | prazo de resposta e e-mail das respostas dos bancos | EXTRAJUDICIAL | conferir no módulo |
 | `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID`, `META_API_VERSION` | campanhas do Meta Ads | COMERCIAL | para o relatório de campanhas |
-| `META_ACCESS_TOKEN_ACOES` | token SEPARADO com `ads_management`, só para `trafego.py acoes --aplicar` | MARKETING/meta_acoes.py | não (sem ele, nada é alterado na conta) |
+| `META_ACCESS_TOKEN_ACOES` | token SEPARADO com `ads_management`, só para `acoes --aplicar` e `replicar --aplicar` | MARKETING/meta_acoes.py, MARKETING/meta_replicar.py | não (sem ele, nada é alterado na conta) |
+| `META_AD_ACCOUNTS_RESERVA` | contas reserva (`act_...` separadas por vírgula) aceitas como destino da réplica | MARKETING/meta_replicar.py | não |
 | `MODELO_MARKETING` | modelo da IA da leitura dos criativos e das variações de texto | MARKETING | não (padrão: `MODELO_SDR`) |
 | `MARKETING_LANDING_URL`, `MARKETING_CALCULADORA_URL` | endereços publicados da landing e da calculadora (links com UTM) | MARKETING | não |
 | `ALERTA_WHATSAPP` | número que recebe os avisos do healthcheck (precisa ser contato no Atende Direito) | deploy/vps/healthcheck.py | recomendada |

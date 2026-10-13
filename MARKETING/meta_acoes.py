@@ -315,7 +315,7 @@ def token_acoes():
 
 
 def _base():
-    return f"https://graph.facebook.com/{os.getenv('META_API_VERSION') or 'v21.0'}"
+    return f"https://graph.facebook.com/{os.getenv('META_API_VERSION') or 'v26.0'}"
 
 
 def _resposta(r):

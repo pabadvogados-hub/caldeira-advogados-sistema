@@ -792,14 +792,13 @@ STATUS_LISTADOS = ['ACTIVE', 'PAUSED', 'ADSET_PAUSED', 'CAMPAIGN_PAUSED', 'WITH_
 
 
 def _por_ids(meta, ids, campos):
-    """Le varios objetos de uma vez (?ids=...), em lotes de 50. So leitura."""
+    """Le varios objetos, um GET por id. So leitura.
+    (O atalho ?ids=... foi desligado pelo Meta na v26.0: responde 500 'ids query parameter is deprecated'.)"""
     saida = []
-    ids = [i for i in dict.fromkeys(ids) if i]
-    for i in range(0, len(ids), 50):
-        r = meta._get('', {'ids': ','.join(ids[i:i + 50]), 'fields': campos})
-        for obj_id, obj in (r or {}).items():
-            obj.setdefault('id', obj_id)
-            saida.append(obj)
+    for obj_id in [i for i in dict.fromkeys(ids) if i]:
+        obj = meta._get(obj_id, {'fields': campos}) or {}
+        obj.setdefault('id', obj_id)
+        saida.append(obj)
     return saida
 
 

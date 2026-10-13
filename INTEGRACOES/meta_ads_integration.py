@@ -9,7 +9,7 @@ Credenciais em config/.env:
   META_ACCESS_TOKEN    token de Usuario do Sistema (Business Manager > Usuarios do sistema),
                        com permissao ads_read na conta de anuncio do escritorio
   META_AD_ACCOUNT_ID   id da conta de anuncio (com ou sem o prefixo act_)
-  META_API_VERSION     opcional (padrao v21.0)
+  META_API_VERSION     opcional (padrao v26.0)
 
 Funcoes:
   configurado()                                      -> bool
@@ -37,7 +37,7 @@ CAMPOS_PADRAO = ('campaign_id,campaign_name,adset_id,adset_name,ad_id,ad_name,'
 
 
 def _base():
-    return f"https://graph.facebook.com/{os.getenv('META_API_VERSION', 'v21.0')}"
+    return f"https://graph.facebook.com/{os.getenv('META_API_VERSION') or 'v26.0'}"
 
 
 def get_token():

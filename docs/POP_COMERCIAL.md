@@ -129,7 +129,7 @@ ANTHROPIC_API_KEY=            # SDR de IA (sdr)
 MODELO_SDR=                   # opcional; padrão = MODELO_EXTRACAO ou claude-sonnet-5
 META_ACCESS_TOKEN=            # token de Usuário do Sistema com ads_read (Business Manager do escritório)
 META_AD_ACCOUNT_ID=           # id da conta de anúncio (com ou sem act_)
-META_API_VERSION=             # opcional; padrão v21.0
+META_API_VERSION=             # opcional; padrão v26.0 (versões antigas são desligadas pelo Meta)
 ATENDE_DIREITO_FLOW_TOKEN=    # opcional; API Flow (mede tempo de resposta)
 ATENDE_DIREITO_TOKEN=         # já existe (API antiga; auditoria parcial)
 ```
