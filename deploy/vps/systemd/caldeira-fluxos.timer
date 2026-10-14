@@ -1,0 +1,11 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Horario de Rondonia (America/Porto_Velho).
+[Unit]
+Description=Caldeira - agenda: Fluxos do atendimento (9h30, 11h30, 14h30, 17h30)
+
+[Timer]
+OnCalendar=*-*-* 09,11,14,17:30:00 America/Porto_Velho
+Persistent=false
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

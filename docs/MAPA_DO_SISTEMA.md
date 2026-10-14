@@ -40,7 +40,8 @@ Iguais no Windows e no Mac; no Mac, antes, `source .venv/bin/activate` (ou use `
 | Fluxo inicial | Closer fechou: pasta, triagem, contrato, procuração, declaração | `CONTRATACAO/main.py novo "TRANSCRICAO" "CNH" ... --cadastro CADASTRO.txt` | Closer | sob demanda | `ANTHROPIC_API_KEY`, `PASTA_CLIENTES_RAIZ` |
 | 1 Onboarding | Relatório de Triagem (gatilhos, bancos, linha do tempo) e situação dos casos | `CONTRATACAO/main.py painel` | Gestor Jurídico, Estagiário | sob demanda | `PASTA_CLIENTES_RAIZ` |
 | 2 Formalização | Envio para assinatura + ADVBOX + Asaas + WhatsApp | `CONTRATACAO/main.py enviar "PASTA"` | Estagiário | sob demanda | `ZAPSIGN_API_TOKEN`, `ATENDE_DIREITO_TOKEN`, `ADVBOX_API_TOKEN`, `ASAAS_API_TOKEN` |
-| 2 Formalização | Confere assinaturas e cobra documentos do cliente | `CONTRATACAO/main.py acompanhar --enviar` | Estagiário | diário 9h, 13h e 17h | `ZAPSIGN_API_TOKEN`, `ATENDE_DIREITO_TOKEN`, `PASTA_CLIENTES_RAIZ` |
+| 2 Formalização | Confere assinaturas (e cobra documentos, se o fluxo `documentos` do FLUXOS estiver desligado) | `CONTRATACAO/main.py acompanhar --enviar` | Estagiário | diário 9h, 13h e 17h | `ZAPSIGN_API_TOKEN`, `ATENDE_DIREITO_TOKEN`, `PASTA_CLIENTES_RAIZ` |
+| Fluxo inicial a 3 | Fluxos do atendimento pelo funil do Atende Direito: cadência de lead quente e pós-reunião, reaquecimento, "ligar já" (leilão/penhora), boas-vindas e documentos do contrato, cobrança de assinatura e de documentos do caso, avisos de fase ao cliente (detalhes em `docs/FLUXOS.md`) | `FLUXOS/main.py rodar --enviar` (simulação sem `--enviar`; `etapas`, `status`, `parar`) | SDR, Closer, Estagiário (recebem os avisos) | diário 9h30, 11h30, 14h30, 17h30 | `ATENDE_DIREITO_FLOW_TOKEN`, `ATENDE_DIREITO_FLOW_CANAL`, `ATENDE_DIREITO_FLOW_FUNIL`, `FLUXOS_TEL_EQUIPE`, `ZAPSIGN_API_TOKEN` |
 | 2 Formalização | Contrato novo sem cobrança no Asaas | `FINANCEIRO/main.py honorarios-novos` | Financeiro | seg a sex 18h | `PASTA_CLIENTES_RAIZ` (+ `ASAAS_API_TOKEN` para conferir) |
 | 2 Formalização | Régua de cobrança dos honorários | `FINANCEIRO/main.py cobranca --enviar` | Financeiro | seg a sex 10h | `ASAAS_API_TOKEN`, `ATENDE_DIREITO_TOKEN` |
 | 3 Extrajudicial | Notificação extrajudicial aos bancos | `EXTRAJUDICIAL/main.py notificar "PASTA"` | Adv. Extrajudicial | sob demanda | `ANTHROPIC_API_KEY` |
@@ -71,11 +72,12 @@ Agendadas em UM lugar só: **ou** num Windows do escritório (`deploy\agendar_ta
 Mac do escritório (`bash deploy/mac/agendar_tarefas_mac.sh`, launchd, agentes `br.com.caldeira.*`), **ou** na VPS
 (`docs/DEPLOY_VPS.md`). Em duas ao mesmo tempo, o cliente receberia mensagem em dobro. As outras máquinas
 (Windows ou Mac) usam só os comandos sob demanda. Os três agendadores têm a mesma agenda e os mesmos comandos
-(no Mac, os horários de uma mesma rotina ficam num agente só: 16 agentes = as 19 tarefas do Windows).
+(no Mac, os horários de uma mesma rotina ficam num agente só: 17 agentes = as 23 tarefas do Windows).
 
 | Rotina | Quando | Manda mensagem ao cliente? | Log |
 |---|---|---|---|
 | Contratação: acompanhar | todo dia 9h, 13h, 17h | sim (links e documentos faltando, máx. 1 por dia) | `logs/contratacao_acompanhar.log` |
+| Fluxos do atendimento | todo dia 9h30, 11h30, 14h30, 17h30 (envia só seg a sáb, 8h às 20h) | sim (máx. 1 por pessoa por dia, somando os fluxos) | `logs/fluxos.log` |
 | Extrajudicial: acompanhar | todo dia 8h30 | conforme o módulo (`--enviar`) | `logs/extrajudicial_acompanhar.log` |
 | Controladoria: varredura | todo dia 7h30 | não | `logs/controladoria_varredura.log` |
 | Controladoria: relatório aos clientes | dias 1 e 16, 8h | não (só gera; envio após revisão) | `logs/controladoria_relatorio_clientes.log` |

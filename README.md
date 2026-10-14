@@ -6,6 +6,7 @@ opcionalmente numa VPS 24h). Cobre o fluxo inteiro do serviço, do primeiro cont
 | Módulo | O que faz |
 |---|---|
 | `COMERCIAL/` | SDR de IA, roteiro do Closer, radar de crédito rural por município, calculadora de juros, Meta Ads, auditoria de atendimento |
+| `FLUXOS/` | Fluxos do atendimento pelo funil do Atende Direito: cadências de lead, "ligar já", boas-vindas, cobrança de assinatura e de documentos, avisos de fase ao cliente (`docs/FLUXOS.md`) |
 | `CONTRATACAO/` | Relatório de Triagem da reunião, contrato + procuração + declaração no timbrado, ZapSign, ADVBOX, Asaas, cobrança de documentos |
 | `EXTRAJUDICIAL/` | Notificação a cada banco, rascunho no Gmail, prazo de resposta, consumidor.gov, parecer de proposta |
 | `JUDICIAL/` | Checklist pré-protocolo, inicial mandamental com tutela, agravo, réplica, embargos, contrarrazões |

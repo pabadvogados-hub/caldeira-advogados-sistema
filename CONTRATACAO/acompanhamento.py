@@ -97,15 +97,30 @@ def cobrar_documentos(base, caso, enviar=False):
           + ('' if enviar else ' [simulado]'))
 
 
+def _fluxos_cobram_documentos():
+    """Com o fluxo 'documentos' ligado em config/fluxos.py, quem cobra e o FLUXOS (evita cobranca em dobro)."""
+    try:
+        from config.fluxos import ATIVOS
+        return 'documentos' in ATIVOS
+    except ImportError:
+        return False
+
+
 def acompanhar(enviar=False):
     casos = listar_casos()
     if not casos:
         print('Nenhum caso em contratacao.')
         return
+    so_assinaturas = _fluxos_cobram_documentos()
+    if so_assinaturas:
+        print('   (cobrança de documentos é feita pelo FLUXOS/main.py; aqui só confiro as assinaturas)')
     for base, caso in casos:
         if caso.get('etapa') == 'ENCERRADO':
             continue
         assinaturas(base, caso)
+        if so_assinaturas:
+            salvar_caso(base, caso)
+            continue
         if enviar:
             cobrar_documentos(base, caso, enviar=True)
         else:

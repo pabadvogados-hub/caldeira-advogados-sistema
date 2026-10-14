@@ -1,0 +1,20 @@
+# Instalado por deploy/vps/instalar_vps.sh em /etc/systemd/system/. Nao editar la: editar aqui e rodar atualizar.sh.
+[Unit]
+Description=Caldeira - Fluxos do atendimento: cadencias de lead, boas-vindas, assinatura, documentos e avisos (9h30, 11h30, 14h30, 17h30)
+After=network-online.target
+Wants=network-online.target
+# modulo ainda nao instalado: a rotina e pulada (nao conta como falha)
+ConditionPathExists=/opt/caldeira/app/FLUXOS/main.py
+OnFailure=caldeira-alerta@%n.service
+
+[Service]
+Type=oneshot
+User=caldeira
+Group=caldeira
+WorkingDirectory=/opt/caldeira/app
+Environment=PYTHONIOENCODING=utf-8 PYTHONUTF8=1 TZ=America/Porto_Velho
+ExecStart=/opt/caldeira/app/.venv/bin/python FLUXOS/main.py rodar --enviar
+StandardOutput=append:/opt/caldeira/app/logs/fluxos.log
+StandardError=inherit
+TimeoutStartSec=1h
+Nice=5

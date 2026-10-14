@@ -52,6 +52,7 @@ PY="$PASTA/.venv/bin/python"
 TABELA='
 # LOG                              FREQ     DIAS                 HORAS              COMANDO
 contratacao_acompanhar             DAILY    -                    09:00,13:00,17:00  CONTRATACAO/main.py acompanhar --enviar
+fluxos                             DAILY    -                    09:30,11:30,14:30,17:30  FLUXOS/main.py rodar --enviar
 extrajudicial_acompanhar           DAILY    -                    08:30              EXTRAJUDICIAL/main.py acompanhar --enviar
 controladoria_varredura            DAILY    -                    07:30              CONTROLADORIA/main.py varredura --dias 3
 controladoria_relatorio_clientes   MONTHLY  1,16                 08:00              CONTROLADORIA/main.py relatorio-clientes --dias 15
